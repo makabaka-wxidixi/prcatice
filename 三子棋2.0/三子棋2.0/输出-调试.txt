@@ -1,0 +1,11 @@
+﻿“三子棋2.0.exe”(Win32): 已加载“E:\VS文件\三子棋2.0\Debug\三子棋2.0.exe”。已加载符号。
+“三子棋2.0.exe”(Win32): 已加载“C:\Windows\SysWOW64\ntdll.dll”。
+“三子棋2.0.exe”(Win32): 已加载“C:\Windows\SysWOW64\kernel32.dll”。
+“三子棋2.0.exe”(Win32): 已加载“C:\Windows\SysWOW64\KernelBase.dll”。
+“三子棋2.0.exe”(Win32): 已加载“C:\Windows\SysWOW64\vcruntime140d.dll”。
+“三子棋2.0.exe”(Win32): 已加载“C:\Windows\SysWOW64\ucrtbased.dll”。
+线程 0x341c 已退出，返回值为 0 (0x0)。
+线程 0xe20 已退出，返回值为 -1073741510 (0xc000013a)。
+线程 0x1724 已退出，返回值为 -1073741749 (0xc000004b)。
+线程 0x2d38 已退出，返回值为 -1073741510 (0xc000013a)。
+程序“[15056] 三子棋2.0.exe”已退出，返回值为 -1073741510 (0xc000013a)。
