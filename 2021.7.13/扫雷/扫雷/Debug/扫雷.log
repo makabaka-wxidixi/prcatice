@@ -1,0 +1,10 @@
+﻿  function.cpp
+E:\VS文件\扫雷\扫雷\function.cpp(81,24): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+E:\VS文件\扫雷\扫雷\function.cpp(83,20): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+E:\VS文件\扫雷\扫雷\function.cpp(85,24): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+E:\VS文件\扫雷\扫雷\function.cpp(87,20): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+E:\VS文件\扫雷\扫雷\function.cpp(89,24): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+E:\VS文件\扫雷\扫雷\function.cpp(91,20): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+E:\VS文件\扫雷\扫雷\function.cpp(93,24): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+E:\VS文件\扫雷\扫雷\function.cpp(95,20): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+  扫雷.vcxproj -> E:\VS文件\扫雷\Debug\扫雷.exe
