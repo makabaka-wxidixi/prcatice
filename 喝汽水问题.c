@@ -14,9 +14,9 @@ int drink_max(int bottle, int exc)
 			bottle = bottle - 1;
 			bottle = bottle / exc;
 			count += bottle;
+			bottle=bottle+1;
 		}
 	}
-	count++;
 	return count;
 }
 int main()
