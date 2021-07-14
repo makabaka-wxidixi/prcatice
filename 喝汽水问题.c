@@ -17,7 +17,7 @@ int drink_max(int bottle, int exc)
 			bottle=bottle+1;
 		}
 	}
-	return count;
+	return count£»
 }
 int main()
 {
