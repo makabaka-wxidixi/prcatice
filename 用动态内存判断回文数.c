@@ -3,18 +3,12 @@
 #include<string.h>
 int digit(int n)
 {
-	if (n >= 0 && n < 10)
-		return 1;
-	else
+	int i = 1;
+	while (n /= 10)
 	{
-		int m = 0;
-		while (n)
-		{
-			n /= 10;
-			m++;
-		}
-		return m;
+		i++;
 	}
+	return i;
 }
 int main()
 {
