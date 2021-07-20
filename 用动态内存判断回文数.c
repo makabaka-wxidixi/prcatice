@@ -1,6 +1,6 @@
 #include<stdio.h>
-#include<math.h>
 #include<string.h>
+#include<stdlib.h>
 int digit(int n)
 {
 	int i = 1;
@@ -13,45 +13,42 @@ int digit(int n)
 int main()
 {
 	int i = 0;
+	int ret = 0;
 	int input = 0;
-	int cinput;
 	int *pa=(int *)malloc(8);//先分配8个字节的大小
 	scanf("%d", &input);
-	int dig = digit(input);//计算输入数字的位数
-	cinput = input;//输入数字拷贝
+	ret = digit(input);//计算输入数字的位数
 	if (dig == 1)
-		printf("是\n");
+		printf("是回文数\n");
 	else
 	{
-		while (dig)
+		while (input)
 		{
-			if (i > 1)
+			if (i > 1)//判断空间是否够用
 			{
 				int* paa = realloc(pa, 4 * (i + 1));//扩容，内存不够就扩4个字节
 				if (paa == NULL)//判断指针有效性
-				{
 					return 0;
-				}
-				pa = paa;
+				else	
+					pa = paa;
 			}
-			*(pa + i) = cinput % 10;
-			cinput /= 10;
+			*(pa + i) = input % 10;
+			input /= 10;
 			i++;
-			dig--;
 		}
-		for (i = 0; i < digit(input) / 2; i++)
+		for (i = 0; i < ret / 2; i++)
 		{
-			if (*(pa + i) != *(pa + digit(input) - 1 - i))//判断对应位置数字是否相等
+			if (*(pa + i) != *(pa + ret - 1 - i))//判断对应位置数字是否相等
 			{
-				printf("不是\n");
-				free(pa);
-				pa = NULL;
+				printf("不是回文数\n");
+				free(pa);//释放空间
+				pa = NULL;//pa指针至成空指针
 				return 0;
 			}
 		}
-		printf("是\n");
+		printf("是回文数\n");
 	}
 	free(pa);//释放空间
-	pa = NULL;//pa指针至成空指针，防止污染
+	pa = NULL;//pa指针至成空指针
 	return 0;
 }
