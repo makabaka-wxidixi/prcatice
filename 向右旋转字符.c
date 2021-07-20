@@ -31,18 +31,16 @@ void left_reversal(char* sourse, int step)//移步函数
 }
 int is_reversal_left(char* sourse, char* change)//返回0就说明不是左旋得来的
 {
-	assert(sourse);
-	assert(change);
+	assert(sourse&&change);
 	assert(strlen(sourse) == strlen(change));
 	int i = 0;
-	int sz = strlen(sourse);
-	for (i = 0; i < sz; i++)
+	for (i = 0; i < strlen(sourse); i++)
 	{
-		int tmp = 0;
 		left_reversal(sourse, 1);//移步函数
-		tmp = cmp(sourse, change);//判断sourse,change是否相等，相等返回1；
-		if (tmp == 1)
-			return 1;
+		if(strcmp(sourse, change)==1)//判断sourse,change是否相等，相等返回1；
+		{
+			return1;
+		}
 	}
 	return 0;
 }
