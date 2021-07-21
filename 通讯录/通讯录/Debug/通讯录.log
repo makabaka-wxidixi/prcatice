@@ -1,3 +1,8 @@
 ﻿  function.c
-E:\VS文件\通讯录\通讯录\function.c(168,8): warning C4013: “qsort”未定义；假设外部返回 int
-  通讯录.vcxproj -> E:\VS文件\通讯录\Debug\通讯录.exe
+E:\practice\prcatice\通讯录\通讯录\function.c(21,41): warning C4013: “malloc”未定义；假设外部返回 int
+E:\practice\prcatice\通讯录\通讯录\function.c(35,28): warning C4013: “realloc”未定义；假设外部返回 int
+E:\practice\prcatice\通讯录\通讯录\function.c(35,1): warning C4047: “初始化”:“peopledata *”与“int”的间接级别不同
+E:\practice\prcatice\通讯录\通讯录\function.c(186,8): warning C4013: “qsort”未定义；假设外部返回 int
+E:\practice\prcatice\通讯录\通讯录\function.c(205,6): warning C4013: “free”未定义；假设外部返回 int
+E:\practice\prcatice\通讯录\通讯录\function.c(241,9): warning C4013: “system”未定义；假设外部返回 int
+  通讯录.vcxproj -> E:\practice\prcatice\通讯录\Debug\通讯录.exe

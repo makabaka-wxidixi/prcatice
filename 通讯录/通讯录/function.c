@@ -2,14 +2,6 @@
 #include<stdio.h>
 #include"funtion.h"
 
-enum type
-{
-	name = 1, 
-	age,
-	tele,
-	address,
-	sex
-};
 
 static int search_people(const struct contact*pcon, char *name)//ÕÒÈËº¯Êý£¬ÕÒµ½·µ»ØÏÂ±ê£¬ÕÒ²»µ½·µ»Ø-1
 {
@@ -23,27 +15,52 @@ static int search_people(const struct contact*pcon, char *name)//ÕÒÈËº¯Êý£¬ÕÒµ½·
 	}
 	return -1;
 }
-void Addcontact(struct contact* pcon)
+
+void initcontact(struct contact* pcon)//¸øÍ¨Ñ¶Â¼¸³Óè³õÊ¼ÄÚ´æ
 {
-	if ((pcon->size) == MAX)
-		printf("Í¨Ñ¶Â¼ÂúÁË");
-	else
+	pcon->data = (struct peopledata*)malloc(sizeof(struct peopledata) * initmem);
+	if (pcon->data == NULL)
 	{
-		printf("\nÇëÊäÈëÃû×Ö£º");
-		scanf("%s", pcon->data[pcon->size].name);
-		printf("\nÇëÊäÈëÐÔ±ð£º");
-		scanf("%s", pcon->data[pcon->size].sex);
-		printf("\nÇëÊäÈëÄêÁä£º");
-		scanf("%d", &(pcon->data[pcon->size].age));
-		printf("\nÇëÊäÈëµç»°£º");
-		scanf("%s", pcon->data[pcon->size].tel);
-		printf("\nÇëÊäÈë×¡Ö·£º");
-		scanf("%s", pcon->data[pcon->size].address);
-		(pcon->size)++;
+		printf("initcontact:%s\n", strerror(errno));
+	}
+	pcon->size = 0;
+	pcon->capacity = initmem;
+}
+
+void expansion(struct contact* pcon)//À©ÈÝÍ¨Ñ¶Â¼
+{
+	if (pcon->size == pcon->capacity)//ÄÚ´æÂúÁË
+	{
+		//À©ÈÝ
+		peopledata* paa = realloc(pcon->data, sizeof(peopledata) * (pcon->size + incrmem));
+		if (paa == NULL)
+		{
+			printf("expansion:%s\n", strerror(errno));
+			return;
+		}
+		pcon->data = paa;
+		pcon->capacity = pcon->size + incrmem;
+		printf("À©ÈÝ³É¹¦\n");
 	}
 }
 
-void Shocontact(const struct contact* pcon)
+void Addcontact(struct contact* pcon)//Ôö¼ÓÁªÏµÈË
+{
+	expansion(pcon);//ÅÐ¶ÏÄÚ´æÊÇ·ñÂú£¬Âú¾ÍÀ©ÈÝ£¬²»Âú¾ÍÊ²Ã´Ò²²»×ö
+	printf("\nÇëÊäÈëÃû×Ö£º");
+	scanf("%s", pcon->data[pcon->size].name);
+	printf("\nÇëÊäÈëÐÔ±ð£º");
+	scanf("%s", pcon->data[pcon->size].sex);
+	printf("\nÇëÊäÈëÄêÁä£º");
+	scanf("%d", &(pcon->data[pcon->size].age));
+	printf("\nÇëÊäÈëµç»°£º");
+	scanf("%s", pcon->data[pcon->size].tel);
+	printf("\nÇëÊäÈë×¡Ö·£º");
+	scanf("%s", pcon->data[pcon->size].address);
+	(pcon->size)++;
+}
+
+void Shocontact(const struct contact* pcon)//´òÓ¡Í¨Ñ¶Â¼
 {	
 	if (pcon->size==0)
 	{
@@ -65,7 +82,7 @@ void Shocontact(const struct contact* pcon)
 	}
 }
 
-void Delcontact(struct contact* pcon)
+void Delcontact(struct contact* pcon)//É¾³ý¶ÔÓ¦ÁªÏµÈË
 {
 	int i = 0;
 	int pos = -1;
@@ -88,7 +105,7 @@ void Delcontact(struct contact* pcon)
 
 }
 
-void Seacontact(const struct contact* pcon)
+void Seacontact(const struct contact* pcon)//Ñ°ÕÒÁªÏµÈË
 {
 	int pos = -1;
 	char name[MAX_NAME];
@@ -111,7 +128,7 @@ void Seacontact(const struct contact* pcon)
 	}
 }
 
-void Modcontact(struct contact* pcon)
+void Modcontact(struct contact* pcon)//ÐÞ¸ÄÁªÏµÈËÐÅÏ¢
 {
 	int pos;//ÊäÈëÒªÐÞ¸ÄÁªÏµÈËËùÔÚÊý×éµÄÎ»ÖÃ
 	char name[MAX_NAME];
@@ -137,27 +154,28 @@ void Modcontact(struct contact* pcon)
 	}
 }
 
-int name_cmp(const void* a, const void* b)
+int name_cmp(const void* a, const void* b)//Ãû×Ö
 {
-	return strcmp(((struct contact*)a)->data->name, ((struct contact*)b)->data->name);
+	return strcmp(((peopledata*)a)->name, ((peopledata*)b)->name);
 }
-int age_cmp(const void* a, const void* b)
+int age_cmp(const void* a, const void* b)//ÄêÁä
 {
-	return ((struct contact*)a)->data->age - ((struct contact*)b)->data->age;
+	return ((peopledata*)a)->age - ((peopledata*)b)->age;
 }
-int tele_cmp(const void* a, const void* b)
+int tele_cmp(const void* a, const void* b)//µç»°
 {
-	return ((struct contact*)a)->data->tel - ((struct contact*)b)->data->tel;
+	return ((peopledata*)a)->tel - ((peopledata*)b)->tel;
 }
-int address_cmp(const void* a, const void* b)
+int address_cmp(const void* a, const void* b)//µØÖ·
 {
-	return strcmp(((struct contact*)a)->data->address , ((struct contact*)b)->data->address);
+	return strcmp(((peopledata*)a)->address, ((peopledata*)b)->address);
 }
-int sex_cmp(const void* a, const void* b)
+int sex_cmp(const void* a, const void* b)//ÐÔ±ð
 {
-	return strcmp(((struct contact*)a)->data->sex , ((struct contact*)b)->data->sex);
+	return strcmp(((peopledata*)a)->sex, ((peopledata*)b)->sex);
 }
-void Sorcontact(struct contact* pcon)
+
+void Sorcontact(struct contact* pcon)//¸øÁªÏµÈËÅÅÐò
 {
 	int input = 0;
 	printf("ÇëÊäÈëÒªÅÅÐòµÄ·½Ê½\n1,Ãû×Ö\n2,Äê¼Í\n3,µç»°\n4,×¡Ö·\n5,ÐÔ±ð\n");
@@ -180,4 +198,51 @@ void Sorcontact(struct contact* pcon)
 		qsort(pcon->data, pcon->size, sizeof(pcon->data[0]), sex_cmp);
 		break;
 	}
+}
+
+void breakcontact(struct contact* pcon)//ÍË³öÍ¨Ñ¶Â¼
+{
+	free(pcon->data);
+	pcon->data = NULL;
+}
+
+void savecontact(struct contact* pcon)//Í¨Ñ¶Â¼±£´æµ½ÎÄ¼þ
+{
+	//´ò¿ªÎÄ¼þ
+	FILE* pfwrite = fopen("contact.tat", "wb");
+	if (pfwrite == NULL)
+	{
+		printf("savecontact:%s\n", strerror(errno));
+		return;
+	}
+	int i = 0;
+	for (i = 0; i < pcon->size; i++)
+	{
+		fwrite(&(pcon->data[i]), sizeof(peopledata), 1, pfwrite);
+	}
+	//¹Ø±ÕÎÄ¼þ
+	fclose(pfwrite);
+	pfwrite = NULL;
+}
+
+void loadcontact(struct contact* pcon)//¼ÓÔØÁªÏµÈËÐÅÏ¢
+{
+	peopledata tmp = { 0 };//´´½¨Ò»¸öÁÙÊ±±äÁ¿À´´æ´¢Êý¾Ý
+	//´ò¿ªÎÄ¼þ
+	FILE* pfread = fopen("contact.tat", "rb");
+	if (pfread == NULL)
+	{
+		printf("loadcontact:%s\n", strerror(errno));
+		return;
+	}
+	while (fread(&tmp, sizeof(peopledata), 1, pfread))
+	{
+		expansion(pcon);
+		system("cls");
+		pcon->data[pcon->size] = tmp;
+		pcon->size++;
+	}
+	//¹Ø±ÕÎÄ¼þ
+	fclose(pfread);
+	pfread = NULL;
 }
