@@ -1,63 +1,91 @@
+//用链表合并有序表
 #include<stdio.h>
 #include<string.h>
 #include<assert.h>
 #include<stdlib.h>
-typedef struct listnode {
+
+typedef struct listnode	//定义结构体
+{
 	int val;
-	struct listnode* next;
-}listnode;
-listnode* initlist1()
+	struct listnode* next;//指向下一个结构体的指针
+}listnode;//重命名
+
+listnode* initlist1(int count)//尾插法
 {
 	int i = 0;
-	listnode* head = (listnode*)malloc(sizeof(listnode));//创建头结点
+	listnode* head = (listnode*)malloc(sizeof(listnode));
 	if (head == NULL)
 	{
-		perror("head");
-		return 0;
+		perror("initlist1 head");
+		return NULL;
 	}
-	listnode* temp = head;//定义一个指向头结点的指针，用于遍历链表
-	//生成链表
-	for (i = 1; i < 4; i ++)
+	head->next = NULL;
+	listnode* rear = head;//建立尾指针
+	for (i = 0; i < count; i++)
 	{
 		listnode* p = (listnode*)malloc(sizeof(listnode));
-		p->val = i;
+		if (p == NULL)
+		{
+			perror("initlist1 p");
+			return NULL;
+		}
 		p->next = NULL;
-		temp->next = p;
-		temp = p;
+		printf("请输入\n");
+		scanf("%d", &(p->val));
+		rear->next = p;
+		rear = p;
 	}
 	return head;
 }
-listnode* initlist2()
+
+
+listnode* initlist2(int count)//头插法
 {
 	int i = 0;
-	listnode* head = (listnode*)malloc(sizeof(listnode));//创建头结点
+	listnode* head = (listnode*)malloc(sizeof(listnode));
 	if (head == NULL)
 	{
 		perror("head");
-		return 0;
+		return NULL;
 	}
-	listnode* temp = head;//定义一个指向头结点的指针，用于遍历链表
-	//生成链表
-	for (i = 0; i < 5; i++)
+	head->next = NULL;
+	for (i = 0; i < count; i++)
 	{
 		listnode* p = (listnode*)malloc(sizeof(listnode));
-		p->val = i;
-		p->next = NULL;
-		temp->next = p;
-		temp = p;
+		printf("请输入\n");
+		scanf("%d", &(p->val));
+		p->next = head->next;
+		head->next = p;
 	}
 	return head;
 }
-void lascsort(listnode* l1, listnode* l2)
+
+void printlist(listnode* l)//打印链表
 {
-	assert(l1 && l2);
-	listnode* l3 = (listnode*)malloc(sizeof(listnode));
+	listnode* p = l->next;
+	while (p != NULL)
+	{
+		printf("%d ", p->val);
+		p = p->next;
+	}
+	printf("\n");
+}
+
+listnode* lascsort(listnode* l1, listnode* l2)//合并升序链表
+{
+	listnode* l3 = (listnode*)malloc(sizeof(listnode));//建立一个新的头结点
+	if (l3 == NULL)
+	{
+		perror("lascsort l3");
+		return NULL;
+	}
+	l3->next = NULL;
+	listnode* p3 = l3;
 	listnode* p1 = l1->next;
 	listnode* p2 = l2->next;
-	listnode* p3 = l3 = l1;
 	while (p1 && p2)
 	{
-		if (p1->val < p2->val)
+		if (p1->val <= p2->val)
 		{
 			p3->next = p1;
 			p3 = p1;
@@ -71,14 +99,21 @@ void lascsort(listnode* l1, listnode* l2)
 		}
 	}
 	p3->next = p1 ? p1 : p2;
+	free(l1);
 	free(l2);
+	l1 = NULL;
 	l2 = NULL;
+	return l3;
 }
 int main()
 {
 	//创建链表
-	listnode* l1 = initlist1();
-	listnode* l2 = initlist2();
-	lascsort(l1, l1);//合并两个链表升序
+	listnode* l3 = NULL;
+	listnode* l1 = initlist1(3);//尾插法
+	printlist(l1);
+	listnode* l2 = initlist2(4);//头插法
+	printlist(l2);
+	l3 = lascsort(l1, l2);//合并两个链表升序
+	printlist(l3);
 	return 0;
 }
