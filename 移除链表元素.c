@@ -73,7 +73,7 @@ listnode* removeval(listnode* l, int val)//传入的是首元结点
 	if (head == NULL)
 	{
 		perror("removeval head");
-		return;
+		return l;
 	}
 	head->next = l;
 	listnode*p=head;
