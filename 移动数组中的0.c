@@ -1,30 +1,41 @@
-#includestdio.h
+#include<stdio.h>
 void movezero(int arr[],int sz)
 {
 	int slow = 0;
 	int fast = 0;
-	while (fast != sz)
+	//while (fast != sz)
+	//{
+	//	if (arr[slow] == 0)慢的指向0就等待被替换
+	//	{
+	//		if (arr[fast] != 0)
+	//		{
+	//			int t = arr[slow];
+	//			arr[slow] = arr[fast];
+	//			arr[fast] = t;
+	//			slow++;
+	//			fast++;
+	//		}
+	//		else
+	//		{
+	//			fast++;
+	//		}
+	//	}
+	//	else
+	//	{
+	//		slow++;
+	//		fast++;
+	//	}
+	//}
+	while(fast<sz)
 	{
-		if (arr[slow] == 0)慢的指向0就等待被替换
+		if(arr[fast])//遇到0slow指针就停下来，fast指针继续向前，遇到非0时，与slow进行交换，两个指针都向前移
 		{
-			if (arr[fast] != 0)
-			{
-				int t = arr[slow];
-				arr[slow] = arr[fast];
-				arr[fast] = t;
-				slow++;
-				fast++;
-			}
-			else
-			{
-				fast++;
-			}
-		}
-		else
-		{
+			int t=arr[slow];
+			arr[slow] = arr[fast];
+			arr[fast] = t;
 			slow++;
-			fast++;
 		}
+		fast++;
 	}
 }
 void print(int arr[],int sz)
