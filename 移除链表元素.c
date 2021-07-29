@@ -66,7 +66,7 @@ void printlist(listnode* l)//
 	printf("\n");
 }
 
-void removeval(listnode* l, int val)//传入的是首元结点
+listnode* removeval(listnode* l, int val)//传入的是首元结点
 {
 	assert(l);
 	listnode* head = (listnode*)malloc(sizeof(listnode));
@@ -76,17 +76,19 @@ void removeval(listnode* l, int val)//传入的是首元结点
 		return;
 	}
 	head->next = l;
-	while (head->next != NULL)
+	listnode*p=head;
+	while (p->next != NULL)
 	{
-		if (head->next->val == val)
+		if (p->next->val == val)
 		{
-			head->next = head->next->next;
+			p->next = p->next->next;
 		}
 		else
 		{
-			head = head->next;
+			p = p->next;
 		}
 	}
+	return head->next;
 }
 int main()
 {
@@ -94,9 +96,9 @@ int main()
 	//printlist(L1);
 	listnode* L2 = initlist2(7);//尾插法是正序
 	//printlist(L2);
-	removeval(L1, 4);
+	L1=removeval(L1, 4);
 	printlist(L1);
-	removeval(L2, 3);
+	L2=removeval(L2, 3);
 	printlist(L2);
 	return 0;
 }
