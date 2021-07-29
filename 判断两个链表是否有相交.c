@@ -65,7 +65,6 @@ listnode* initlist2(int count)//尾插法
 void printlist(listnode* l)//打印链表
 {
 	listnode* p = l;
-	int i = 0;
 	while (p != NULL)
 	{
 		printf("%d ", p->val);
@@ -90,12 +89,14 @@ int is_intersection(listnode* l1, listnode* l2)//判断公共结点，双指针
 	listnode* p2 = l2;
 	while (p1 != p2)
 	{
-		if (p1 == NULL)//L1遍历完之后，再在L2上进行遍历
-			p1 = l2;
-		if (p2 == NULL)//L2遍历完之后，再在L1上进行遍历
-			p2 = l1;
-		p1 = p1->next;
-		p2 = p2->next;
+		//if (p1 == NULL)//L1遍历完之后，再在L2上进行遍历
+		//	p1 = l2;
+		//if (p2 == NULL)//L2遍历完之后，再在L1上进行遍历
+		//	p2 = l1;
+		//p1 = p1->next;
+		//p2 = p2->next;
+		p1=p1==NULL?p2:p1->next;
+		p2=p2==NULL?p1:p2->next;
 	}
 	if (p1 == NULL)
 		return 0;//遍历完两个链表后，如果返回值是NULL，就证明没有交点
