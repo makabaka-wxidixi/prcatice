@@ -125,6 +125,37 @@ void LastOrderByStack(Tree T)//后序非递归遍历
 		}
 	}
 }
+void LeaveOrder(Tree T)
+{
+	Tree p=NULL;
+	Tree Q[6];//创建队列
+	int front=0;//头坐标
+	int rear=0;//尾坐标
+	Q[rear]=T;//根结点入队
+	rear=(rear+1)%6;
+	while(front!=rear)//列表不为空
+	{
+		p=Q[front];
+		printf("%c\t",p->val);//打印结点信息
+		front=(front+1)%6;//出队
+		if(p->lchild!=NULL)//左孩子是否为空
+		{
+			if((rear+1)%6!=front)//判满
+			{
+				Q[rear]=p->lchild;//入队
+				rear=(rear+1)%6;//尾坐标加一
+			}
+		}
+		if(p->rchild!=NULL)//有孩子是否为空
+		{
+			if((rear+1)%6!=front)//判断队列是不是满了
+			{
+				Q[rear]=p->rchild;//入队
+				rear=(rear+1)%6;//尾坐标加一
+			}
+		}
+	}
+}
 int main()
 {
 	Tree T = NULL;//建立一个根节点
@@ -140,6 +171,7 @@ int main()
 	LastOrderBiTree(T);//后序遍历二叉树
 	printf("\n");
 	LastOrderByStack(T);//后序非递归遍历
-	printf("\n");
+	printf("\n"); 
+	LeaveOrder(T);//层次遍历
 	return 0;
 }
