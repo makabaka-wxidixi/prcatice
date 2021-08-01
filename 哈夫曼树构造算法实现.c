@@ -60,7 +60,7 @@ int* Select(HuffmanTree HT, int n)//找前n个的最小权重
 	}
 	return ret;//返回下标
 }
-HuffmanTree CreatHFTree(HuffmanTree HT, int n)//创建霍夫曼树
+HuffmanTree CreatHFTree(HuffmanTree HT, int n)//创建哈夫曼树
 {
 	assert(n);
 	int m = 2 * n - 1;//总结点个数
