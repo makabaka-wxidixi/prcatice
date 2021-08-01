@@ -91,7 +91,6 @@ HuffmanTree CreatHFTree(HuffmanTree HT, int n)//创建哈夫曼树
 void MidOrderHFTree(HuffmanTree HT)
 {
 	int input = 0;
-	printf("输入0退出\n");
 	do
 	{
 		printf("请输入要查找的结点下标\n");
