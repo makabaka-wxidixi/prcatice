@@ -156,10 +156,61 @@ void LeaveOrder(Tree T)
 		}
 	}
 }
+
+Tree CopyTree(Tree T)
+{
+	if (T == NULL)	return NULL;
+	Tree C = (Tree)malloc(sizeof(TreeNode));
+	if (C == NULL)	return NULL;
+	C->data = T->data;
+	C->lchild = CopyTree(T->lchild);
+	C->rchild = CopyTree(T->rchild);
+	return C;
+}
+
+int deapTree(Tree T)
+{
+	if (T == NULL)	return 0;
+	else
+	{
+		int m = deapTree(T->lchild) + 1;
+		int n = deapTree(T->rchild) + 1;
+		return m > n ? m : n;
+	}
+}
+
+int NodeCount(Tree T)
+{
+	if (T == NULL)	return 0;
+	else return NodeCount(T->lchild) + NodeCount(T->rchild) + 1;
+}
+
+int LeafCount(Tree T)
+{
+	if (T == NULL)
+		return 0;
+	if (T->lchild == NULL && T->rchild == NULL)
+		return 1;//左右孩子都是空，就是叶子结点
+	else
+	{
+		return LeafCount(T->lchild) + LeafCount(T->rchild);
+	}
+}
 int main()
 {
-	Tree T = NULL;//建立一个根节点
-	T = creatTree(T);//二叉树的构建
+	int node;//树的结点
+	int deap;//树的深度
+	int leaf;//树的叶子
+	Tree T1 = NULL;//建立一个根节点
+	Tree T=NULL;
+	T1 = creatTree(T1);//二叉树的构建
+	T = CopyTree(T1);//复制树
+	leaf = LeafCount(T);
+	printf("树的叶子结点：%d\n", leaf);
+	node = NodeCount(T);
+	printf("树的结点：%d\n", node);
+	deap = deapTree(T);
+	printf("树的深度：%d", deap);
 	PrevOrderBiTree(T);//先序递归遍历二叉树
 	printf("\n");
 	PrevOrderByStack(T);//先序非递归遍历
