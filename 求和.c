@@ -6,7 +6,7 @@ int sum(int a, int n)
 	int b = 0;
 	for (i = 0; i < n; i++)
 	{
-		b = b * 10 + 2;
+		b = b * 10 + a;
 		sum += b;
 	}
 	return sum;
