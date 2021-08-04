@@ -16,9 +16,8 @@ void swap_str(char* p, int sz)
 int main()
 {
 	char arr[] = "abcdef";
-	char* p = arr;
-	int sz = strlen(p);
-	swap_str(p, sz);
+	int sz = strlen(arr);
+	swap_str(arr, sz);
 	printf("%s\n", arr);
 	return 0;
 }
