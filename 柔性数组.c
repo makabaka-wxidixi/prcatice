@@ -1,7 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-
-
 struct S
 {
 	int n;
@@ -16,11 +14,6 @@ int main()
 	{
 		ps->arr[i] = i;
 	}
-	//for (i = 0; i < 5; i++)
-	//{
-	//	printf("%d ", ps->arr[i]);
-	//}
-	//调整大小
 	int *ptr = realloc(ps->arr, 10 * sizeof(int));//结构体内数组改变成10个int大小，再添加5个int
 	if (ptr != NULL)
 	{
