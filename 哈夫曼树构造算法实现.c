@@ -60,6 +60,57 @@ int* Select(HuffmanTree HT, int n)//找前n个的最小权重
 	}
 	return ret;//返回下标
 }
+
+int* select_minnum1(HTree HT, int n)//移动指针来找两个最小权
+{
+	int arr[2] = { 0 };
+	int ret[2] = { -1,-1 };
+	int m = 2, p = 1, u = 2;
+	while (p <= n)
+	{
+		if (!(HT[p].parent) && m == 2)//父节点为0
+		{
+			arr[0] = HT[p].weight;
+			m--;
+		}
+		else if (!(HT[p].parent) && m == 1)
+		{
+			arr[1] = HT[p].weight;
+			m--;
+		}
+		else if (!(HT[p].parent) && m == 0)
+		{
+			if (HT[p].weight < arr[0] && HT[p].weight < arr[1])//新结点权重小于arr其中一个或多个
+			{
+				if (arr[0] < arr[1])//arr[0]更小
+					arr[1] = HT[p].weight;//对较大值赋值
+				else
+					arr[0] = HT[p].weight;
+			}
+			else//比两个数都大或者只比一个小
+			{
+				if (HT[p].weight < arr[0])
+					arr[0] = HT[p].weight;
+				else if (HT[p].weight < arr[1])
+					arr[1] = HT[p].weight;
+				else
+					;
+			}
+		}
+		else;
+		p++;
+	}
+	for (int i = 1; i <= n; i++)
+	{
+		if (!(HT[i].parent) && HT[i].weight == arr[0] && ret[0] == -1)
+			ret[0] = i;
+		else if (!(HT[i].parent) && HT[i].weight == arr[1] && ret[1] == -1)
+			ret[1] = i;
+		else;
+	}
+	return ret;
+}
+
 HuffmanTree CreatHFTree(HuffmanTree HT, int n)//创建哈夫曼树
 {
 	assert(n);
