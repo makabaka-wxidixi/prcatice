@@ -16,37 +16,49 @@ int main()
 	int ret = 0;
 	int input = 0;
 	int *pa=(int *)malloc(8);//先分配8个字节的大小
+	if(pa==NULL)
+	{
+		perror("pa");
+		return 0;
+	}
 	scanf("%d", &input);
-	ret = digit(input);//计算输入数字的位数
-	if (dig == 1)
-		printf("是回文数\n");
+	if(input<0)
+		printf("不是回文数\n");
 	else
 	{
-		while (input)
+		ret = digit(input);//计算输入数字的位数
+		if (digit == 1)
+			printf("是回文数\n");
+		else
 		{
-			if (i > 1)//判断空间是否够用
+			while (input)
 			{
-				int* paa = realloc(pa, 4 * (i + 1));//扩容，内存不够就扩4个字节
-				if (paa == NULL)//判断指针有效性
-					return 0;
-				else	
+				if (i > 1)//判断空间是否够用
+				{
+					int* paa = realloc(pa, 4 * (i + 1));//扩容，内存不够就扩4个字节
+					if (paa == NULL)//判断指针有效性
+					{
+						perror("paa");
+						return 0;
+					}	
 					pa = paa;
+				}
+				*(pa + i) = input % 10;
+				input /= 10;
+				i++;
 			}
-			*(pa + i) = input % 10;
-			input /= 10;
-			i++;
-		}
-		for (i = 0; i < ret / 2; i++)
-		{
-			if (*(pa + i) != *(pa + ret - 1 - i))//判断对应位置数字是否相等
+			for (i = 0; i < ret / 2; i++)
 			{
-				printf("不是回文数\n");
-				free(pa);//释放空间
-				pa = NULL;//pa指针至成空指针
-				return 0;
+				if (*(pa + i) != *(pa + ret - 1 - i))//判断对应位置数字是否相等
+				{
+					printf("不是回文数\n");
+					free(pa);//释放空间
+					pa = NULL;//pa指针至成空指针
+					return 0;
+				}
 			}
+			printf("是回文数\n");
 		}
-		printf("是回文数\n");
 	}
 	free(pa);//释放空间
 	pa = NULL;//pa指针至成空指针
