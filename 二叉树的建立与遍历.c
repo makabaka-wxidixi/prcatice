@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<assert.h>
+#include<stdlib.h>
 typedef struct TreeNode {//树结点
 	char data;
 	struct TreeNode* lchild;
@@ -27,7 +28,7 @@ Tree creatTree(Tree T)//创建树
 void PrevOrderBiTree(Tree T)//先序遍历
 {
 	if (T == NULL)	
-		return NULL;//空树
+		return;//空树
 	printf("%c\t", T->data);
 	PrevOrderBiTree(T->lchild);
 	PrevOrderBiTree(T->rchild);
@@ -35,7 +36,7 @@ void PrevOrderBiTree(Tree T)//先序遍历
 void MidOrderBiTree(Tree T)//中序遍历
 {
 	if (T == NULL)
-		return NULL;//树结点为空
+		return;//树结点为空
 	MidOrderBiTree(T->lchild);
 	printf("%c\t", T->data);
 	MidOrderBiTree(T->rchild);
@@ -43,7 +44,7 @@ void MidOrderBiTree(Tree T)//中序遍历
 void LastOrderBiTree(Tree T)//后序遍历
 {
 	if (T == NULL)
-		return NULL;
+		return;
 	LastOrderBiTree(T->lchild);
 	LastOrderBiTree(T->rchild);
 	printf("%c\t", T->data);
@@ -51,7 +52,7 @@ void LastOrderBiTree(Tree T)//后序遍历
 void PrevOrderByStack(Tree T)//先序非递归遍历
 {
 	if (T == NULL)
-		return NULL;
+		return;
 	Tree stack[10];//定义一个栈
 	int stacktop = -1;//栈顶标记
 	Tree pMove = T;
@@ -73,7 +74,7 @@ void PrevOrderByStack(Tree T)//先序非递归遍历
 void MidOrderByStack(Tree T)//中序非递归遍历
 {
 	if (T == NULL)
-		return NULL;
+		return;
 	Tree stack[10];//栈建立
 	int stacktop = -1;//栈顶标记
 	Tree pMove = T;
@@ -95,7 +96,7 @@ void MidOrderByStack(Tree T)//中序非递归遍历
 void LastOrderByStack(Tree T)//后序非递归遍历
 {
 	if (T == NULL)
-		return NULL;
+		return;
 	Tree stack[10];
 	int stacktop = -1;
 	Tree pMove = T;
@@ -136,7 +137,7 @@ void LeaveOrder(Tree T)
 	while(front!=rear)//列表不为空
 	{
 		p=Q[front];
-		printf("%c\t",p->val);//打印结点信息
+		printf("%c\t",p->data);//打印结点信息
 		front=(front+1)%6;//出队
 		if(p->lchild!=NULL)//左孩子是否为空
 		{
@@ -196,6 +197,20 @@ int LeafCount(Tree T)
 		return LeafCount(T->lchild) + LeafCount(T->rchild);
 	}
 }
+
+struct TreeNode* invertTree(struct TreeNode* root) {
+	if (root == NULL)  return NULL;
+	struct TreeNode* p = NULL;
+	p = root->lchild;
+	root->lchild = root->rchild;
+	root->rchild = p;
+	if (root->lchild)
+		invertTree(root->lchild);
+	if (root->rchild)
+		invertTree(root->rchild);
+	return root;
+}
+
 int main()
 {
 	int node;//树的结点
@@ -210,13 +225,14 @@ int main()
 	node = NodeCount(T);
 	printf("树的结点：%d\n", node);
 	deap = deapTree(T);
-	printf("树的深度：%d", deap);
+	printf("树的深度：%d\n", deap);
 	PrevOrderBiTree(T);//先序递归遍历二叉树
 	printf("\n");
 	PrevOrderByStack(T);//先序非递归遍历
 	printf("\n");
 	MidOrderBiTree(T);//中序遍历二叉树
 	printf("\n");
+	T = invertTree(T);
 	MidOrderByStack(T);//中序非递归遍历
 	printf("\n");
 	LastOrderBiTree(T);//后序遍历二叉树
