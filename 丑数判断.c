@@ -18,6 +18,31 @@ int isUgly(int n) {
         return 0;
 }
 
+int nthUglyNumber(int n) {
+    int idex = 0;//索引
+    while (n--)//循环n次
+    {
+        int m = ++idex;//记录索引值
+        while (1)
+        {
+            if (m % 2 == 0 || m % 3 == 0 || m % 5 == 0) {
+                if (m % 2 == 0)   m /= 2;
+                else if (m % 3 == 0)  m /= 3;
+                else if (m % 5 == 0)  m /= 5;
+                else;
+            }
+            else
+            {
+                if (m == 1)
+                    break;
+                else
+                    m = ++idex;
+            }
+        }
+    }
+    return idex;
+}
+
 int main()
 {
     int ret = 0;
@@ -27,5 +52,9 @@ int main()
     ret = isUgly(input);
     if (ret) printf("是丑数");
     else printf("不是丑数");
+	printf("输入一个数字n，将会返回第n个丑数");
+    scanf("%d", &input);
+    ret = nthUglyNumber(input);
+    printf("%d", ret);
     return 0;
 }
